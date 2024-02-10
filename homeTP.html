@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Formulario</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+      padding: 20px;
+    }
+
+    form {
+      max-width: 400px;
+      margin: 0 auto;
+      background-color: #ffffff;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    input[type="date"],
+    input[type="text"],
+    input[type="number"],
+    select {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th, td {
+      padding: 8px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+
+    input[type="submit"] {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #45a049;
+    }
+  </style>
+    <script>
+      // JavaScript para validación del formulario
+      function validarFormulario() {
+        var fecha = document.getElementById("fecha").value;
+        var nombres = document.getElementById("nombres").value;
+        var provincia = document.getElementById("provincia").value;
+  
+        // Validar campos requeridos
+        if (!fecha || !nombres || !provincia) {
+          alert("Por favor, complete todos los campos obligatorios.");
+          return false;
+        }
+  
+        // Validar formato de fecha (opcional)
+        var fechaRegExp = /^\d{4}-\d{2}-\d{2}$/;
+        if (!fechaRegExp.test(fecha)) {
+          alert("Por favor, ingrese una fecha válida en el formato AAAA-MM-DD.");
+          return false;
+        }
+  
+        // Validar que se haya seleccionado una provincia válida
+        var provinciaRegExp = /^[1-5]$/;
+        if (!provinciaRegExp.test(provincia)) {
+          alert("Por favor, seleccione una provincia válida.");
+          return false;
+        }
+  
+        // Validar campos de cantidad y precio
+        var cantidad1 = parseFloat(document.getElementsByName("cantidad1")[0].value);
+        var precio1 = parseFloat(document.getElementsByName("precio1")[0].value);
+        var cantidad2 = parseFloat(document.getElementsByName("cantidad2")[0].value);
+        var precio2 = parseFloat(document.getElementsByName("precio2")[0].value);
+  
+        if (cantidad1 < 0 || precio1 < 0 || cantidad2 < 0 || precio2 < 0) {
+          alert("No se permiten valores negativos en los campos de cantidad y precio.");
+          return false;
+        }
+  
+        // Realizar cualquier otra validación necesaria
+  
+        return true;
+      }
+    </script>
+</head>
+<body>
+  <form action="archivo.php" method="POST">
+    <label for="fecha">Fecha:</label>
+    <input type="date" id="fecha" name="fecha">
+
+    <label for="nombres">Nombres:</label>
+    <input type="text" id="nombres" name="nombres">
+
+    <label for="provincia">Provincia:</label>
+    <select id="provincia" name="provincia">
+      <option value="1">1 - Impuesto 10%</option>
+      <option value="2">2 - Impuesto 20%</option>
+      <option value="3">3 - Impuesto 30%</option>
+      <option value="4">4 - Impuesto 40%</option>
+      <option value="5">5 - Impuesto 50%</option>
+      </select>
+      <label for="detalle">Detalle:</label>
+
+<table>
+  <tr>
+    <th>Codigo</th>
+    <th>Descripcion</th>
+    <th>Cantidad</th>
+    <th>Precio</th>
+  </tr>
+  <tr>
+    <td><input type="number" name="codigo1" min="0"></td>
+    <td><input type="text" name="descripcion1"></td>
+    <td><input type="number" name="cantidad1" min="0"></td>
+    <td><input type="number" step="0.01" name="precio1" min="0"></td>
+  </tr>
+  <tr>
+    <td><input type="number" name="codigo2" min="0"></td>
+    <td><input type="text" name="descripcion2"></td>
+    <td><input type="number" name="cantidad2" min="0"></td>
+    <td><input type="number" step="0.01" name="precio2" min="0"></td>
+  </tr>
+</table>
+
+<input type="submit" value="Enviar">
+  </form>
+</body>
+</html>
